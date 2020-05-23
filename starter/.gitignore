@@ -1,0 +1,15 @@
+*.iml
+.idea
+target
+*.swp
+.flattened-pom.xml
+.DS_Store
+*.vscode
+yarn.lock
+node_modules
+*.swo
+.classpath
+.factorypath
+.project
+.settings
+.sts4-cache
