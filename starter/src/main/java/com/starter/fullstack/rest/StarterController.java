@@ -9,6 +9,7 @@ import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -48,7 +49,7 @@ public class StarterController {
    * @return Product.
    */
   @PostMapping("/products/save")
-  public Product saveProduct(Product product) {
+  public Product saveProduct(@RequestBody Product product) {
     return this.productDAO.save(product);
   }
 
@@ -56,7 +57,7 @@ public class StarterController {
    * Delete Product By Id.
    * @param id id.
    */
-  @DeleteMapping("/products/remove")
+  @DeleteMapping("/products")
   public void deleteProductById(@RequestParam("id") String id) {
     this.productDAO.deleteById(id);
   }
@@ -76,7 +77,7 @@ public class StarterController {
    * @return Inventory.
    */
   @PostMapping("/inventory/save")
-  public Inventory saveProduct(Inventory inventory) {
+  public Inventory saveProduct(@RequestBody Inventory inventory) {
     return this.inventoryDAO.save(inventory);
   }
 
@@ -84,7 +85,7 @@ public class StarterController {
    * Delete Inventory By Id.
    * @param id id.
    */
-  @DeleteMapping("/inventory/remove")
+  @DeleteMapping("/inventory")
   public void deleteInventoryById(@RequestParam("id") String id) {
     this.inventoryDAO.deleteById(id);
   }

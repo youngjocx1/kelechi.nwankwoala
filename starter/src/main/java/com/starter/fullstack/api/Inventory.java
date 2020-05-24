@@ -12,10 +12,11 @@ import lombok.Data;
 public class Inventory {
   private String id;
   private String name;
-  private Product product;
+  private String productType;
   private String description;
-  private BigDecimal price;
+  private BigDecimal averagePrice;
   private BigDecimal amount;
+  private UnitOfMeasurement unitOfMeasurement;
   private Instant bestBeforeDate;
   private boolean neverExpires;
   private List<String> availableStores;
