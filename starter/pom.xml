@@ -15,9 +15,11 @@
     <joelittlejohn.embedmongo.version>0.4.1</joelittlejohn.embedmongo.version>
     <joelittlejohn.embedmongo.downloadUrl>http://fastdl.mongodb.org/</joelittlejohn.embedmongo.downloadUrl>
     <java.version>11</java.version>
+		<junit.version>4.12</junit.version>
     <lombok.version>1.18.12</lombok.version>
     <maven-checkstyle-plugin.version>3.1.1</maven-checkstyle-plugin.version>
 		<maven-compiler.version>3.8.0</maven-compiler.version>
+		<maven.properties.plugin.version>1.0.0</maven.properties.plugin.version>
 		<mongo.version>3.6.5</mongo.version>
 		<pmd.version>3.11.0</pmd.version>
     <spotbugs.version>3.1.12.2</spotbugs.version>
@@ -53,14 +55,14 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<version>${spring.boot.version}</version>
 			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.junit.vintage</groupId>
-					<artifactId>junit-vintage-engine</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
-	</dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
 
 	<build>
 		<plugins>
@@ -303,6 +305,30 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>properties-maven-plugin</artifactId>
+				<version>${maven.properties.plugin.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>set-system-properties</goal>
+						</goals>
+						<configuration>
+							<properties>
+								<property>
+									<name>de.flapdoodle.embed.io.tmpdir</name>
+									<value>${joelittlejohn.embedmongo.home}</value>
+								</property>
+							</properties>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.github.joelittlejohn.embedmongo</groupId>
+				<artifactId>embedmongo-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
 		<pluginManagement>

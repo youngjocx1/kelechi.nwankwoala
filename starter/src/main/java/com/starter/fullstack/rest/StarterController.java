@@ -5,6 +5,7 @@ import com.starter.fullstack.api.Product;
 import com.starter.fullstack.dao.InventoryDAO;
 import com.starter.fullstack.dao.ProductDAO;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,7 +50,7 @@ public class StarterController {
    * @return Product.
    */
   @PostMapping("/products/save")
-  public Product saveProduct(@RequestBody Product product) {
+  public Product saveProduct(@Valid @RequestBody Product product) {
     return this.productDAO.save(product);
   }
 
@@ -59,6 +60,7 @@ public class StarterController {
    */
   @DeleteMapping("/products")
   public void deleteProductById(@RequestParam("id") String id) {
+    Assert.hasText(id, "Product Id was not provided");
     this.productDAO.deleteById(id);
   }
 
@@ -77,16 +79,18 @@ public class StarterController {
    * @return Inventory.
    */
   @PostMapping("/inventory/save")
-  public Inventory saveProduct(@RequestBody Inventory inventory) {
+  public Inventory saveInventory(@Valid @RequestBody Inventory inventory) {
     return this.inventoryDAO.save(inventory);
   }
 
   /**
    * Delete Inventory By Id.
    * @param id id.
+   * @return Deleted Inventory.
    */
   @DeleteMapping("/inventory")
-  public void deleteInventoryById(@RequestParam("id") String id) {
-    this.inventoryDAO.deleteById(id);
+  public Inventory deleteInventoryById(@RequestParam("id") String id) {
+    Assert.hasText(id, "Inventory Id was not provided");
+    return this.inventoryDAO.deleteById(id);
   }
 }
