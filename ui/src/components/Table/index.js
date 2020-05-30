@@ -112,7 +112,7 @@ const useToolbarStyles = makeStyles((theme) => ({
 
 export const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles()
-  const { numSelected } = props
+  const { numSelected, toggleCreate, toggleDelete, toggleEdit } = props
 
   return (
     <Toolbar disableGutters
@@ -130,20 +130,23 @@ export const EnhancedTableToolbar = (props) => {
       }
       {numSelected > 0
         ? <React.Fragment>
-          <Tooltip title='Edit'>
-            <IconButton size='small' aria-label='edit'>
-              <EditIcon/>
-            </IconButton>
-          </Tooltip>
+          {numSelected === 1
+            ? <Tooltip title='Edit'>
+              <IconButton size='small' onClick={toggleEdit} aria-label='edit'>
+                <EditIcon/>
+              </IconButton>
+            </Tooltip>
+            : null
+          }
           <Tooltip title='Delete'>
-            <IconButton size='small' aria-label='delete'>
+            <IconButton size='small' onClick={toggleDelete} aria-label='delete'>
               <DeleteIcon/>
             </IconButton>
           </Tooltip>
         </React.Fragment>
         : <React.Fragment>
           <Tooltip title='Create'>
-            <IconButton size='small' aria-label='create new'>
+            <IconButton size='small' onClick={toggleCreate} aria-label='create new'>
               <AddIcon/>
             </IconButton>
           </Tooltip>

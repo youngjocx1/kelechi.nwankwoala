@@ -12,8 +12,10 @@ import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import { makeStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
+import ProductDeleteModal from '../components/Products/ProductFormModal'
+import ProductFormModal from '../components/Products/ProductFormModal'
 import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { connect, useDispatch, useSelector } from 'react-redux'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,14 +31,29 @@ const useStyles = makeStyles((theme) => ({
 const ProductLayout = (props) => {
   const classes = useStyles()
   const dispatch = useDispatch()
-  const products = useSelector(state => state.products.all)
-  const isFetched = useSelector(state => state.products.fetched)
   useEffect(() => {
-    if (!isFetched) {
+    if (!props.isFetched) {
       dispatch(productDuck.findProducts())
     }
-  }, [dispatch, isFetched])
+  }, [dispatch, props.isFetched])
 
+  const [isCreateOpen, setCreateOpen] = React.useState(false)
+  const [isEditOpen, setEditOpen] = React.useState(false)
+  const [isDeleteOpen, setDeleteOpen] = React.useState(true)
+  const toggleCreate = () => {
+    setCreateOpen(true)
+  }
+  const toggleEdit = () => {
+    setEditOpen(true)
+  }
+  const toggleDelete = () => {
+    setDeleteOpen(true)
+  }
+  const toggleModals = () => {
+    setCreateOpen(false)
+    setDeleteOpen(false)
+    setEditOpen(false)
+  }
   const [checked, setChecked] = React.useState([])
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value)
@@ -53,9 +70,33 @@ const ProductLayout = (props) => {
     <Grid container>
       <Grid item xs={12}>
         <Paper>
-          <EnhancedTableToolbar numSelected={checked.length} title='Products'/>
+          <ProductFormModal
+            title='Create'
+            id='productCreate'
+            isDialogOpen={isCreateOpen}
+            handleDialog={toggleModals}
+            handleSubmit={props.saveProduct}
+          />
+          <ProductFormModal
+            title='Edit'
+            id='productEdit'
+            isDialogOpen={isEditOpen}
+            handleSubmit={props.saveProduct}
+          />
+          <ProductDeleteModal
+            id='productDelete'
+            isDialogOpen={isDeleteOpen}
+            handleSubmit={props.removeProduct}
+          />
+          <EnhancedTableToolbar
+            numSelected={checked.length}
+            title='Products'
+            toggleCreate={toggleCreate}
+            toggleDelete={toggleDelete}
+            toggleEdit={toggleEdit}
+          />
           <List dense disablePadding className={classes.root}>
-            {products.map((value, index) =>
+            {props.products.map((value, index) =>
               <React.Fragment key={index}>
                 <Divider/>
                 <ListItem button onClick={handleToggle(index)}>
@@ -81,4 +122,21 @@ const ProductLayout = (props) => {
   )
 }
 
-export default ProductLayout
+export default connect(
+  (state) => {
+    return {
+      isFetched: useSelector(state => state.products.fetched),
+      products: useSelector(state => state.products.all)
+    }
+  },
+  (dispatch, props) => {
+    return {
+      removeProduct: (id) => {
+        dispatch(productDuck.removeProducts(id))
+      },
+      saveProduct: (product) => {
+        dispatch(productDuck.saveProducts(product))
+      }
+    }
+  }
+)(ProductLayout)

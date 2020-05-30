@@ -1,4 +1,5 @@
 import * as inventoryDuck from '../ducks/inventory'
+import * as productDuck from '../ducks/products'
 import Checkbox from '@material-ui/core/Checkbox'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
@@ -46,10 +47,11 @@ const InventoryLayout = (props) => {
   const classes = useStyles()
   const dispatch = useDispatch()
   const inventory = useSelector(state => state.inventory.all)
-  const isFetched = useSelector(state => state.inventory.fetched)
+  const isFetched = useSelector(state => state.inventory.fetched && state.products.fetched)
   useEffect(() => {
     if (!isFetched) {
       dispatch(inventoryDuck.findInventory())
+      dispatch(productDuck.findProducts())
     }
   }, [dispatch, isFetched])
 
