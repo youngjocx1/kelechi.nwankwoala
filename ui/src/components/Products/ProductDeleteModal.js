@@ -6,39 +6,22 @@ import DialogTitle from '@material-ui/core/DialogTitle'
 import Grid from '@material-ui/core/Grid'
 import React from 'react'
 import Typography from '@material-ui/core/Typography'
-import { withStyles } from '@material-ui/core/styles'
 import { Form, reduxForm } from 'redux-form'
 
-const styles = (theme) => {
-  return {
-    gridItem: {
-      padding: theme.spacing(1),
-    },
-  }
-}
-
-/*
- * Assume the following properties are present and loaded from parent component:
- *
- * this.props.delete -- the function called to delete the associated form/values.
- * this.props.handleDialog -- how to handle the dialog on close.
- * this.props.handleSubmit -- how to handle the submission.
- * this.props.isDialogOpen -- how to know when this dialog is or isn't open.
- */
 class ProductDeleteModal extends React.Component {
   render() {
-    const { handleDialog, handleSubmit, id, isDialogOpen } = this.props
+    const { handleDialog, handleDelete, handleSubmit, isDialogOpen } = this.props
     return (
       <Form
         autoComplete='off'
-        id={id}
+        id={'deleteProduct'}
         onSubmit={handleSubmit((val) => {
-          this.props.delete(val)
-          handleDialog()
+          handleDelete(val)
+          handleDialog(true)
         })}>
         <Dialog
           open={isDialogOpen}
-          onClose={() => { handleDialog() }}
+          onClose={() => { handleDialog(false) }}
         >
           <DialogTitle id='alert-dialog-title'>Delete Product</DialogTitle>
           <DialogContent>
@@ -52,7 +35,9 @@ class ProductDeleteModal extends React.Component {
           </DialogContent>
           <DialogActions>
             <Button onClick={() => { handleDialog(false) }} color='secondary'>No</Button>
-            <Button variant='contained' type='submit' form='deleteProduct' color='secondary'>Yes</Button>
+            <Button disableElevation variant='contained' type='submit' form='deleteProduct' color='secondary'>
+              Yes
+            </Button>
           </DialogActions>
         </Dialog>
       </Form>
@@ -60,10 +45,11 @@ class ProductDeleteModal extends React.Component {
   }
 }
 
-DeleteFormModal.defaultProps = {
+ProductDeleteModal.defaultProps = {
   delete: {}
 }
 
 export default reduxForm({
   form: 'deleteProduct',
-})(withStyles(styles)(ProductDeleteModal))
+  enableReinitialize: true
+})(ProductDeleteModal)

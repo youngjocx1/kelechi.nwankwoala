@@ -56,12 +56,12 @@ public class StarterController {
 
   /**
    * Delete Product By Id.
-   * @param id id.
+   * @param ids ids.
    */
-  @DeleteMapping("/products")
-  public void deleteProductById(@RequestParam("id") String id) {
-    Assert.hasText(id, "Product Id was not provided");
-    this.productDAO.deleteById(id);
+  @PostMapping("/products/remove")
+  public void deleteProductById(@RequestBody List<String> ids) {
+    Assert.notEmpty(ids, "Product Ids were not provided");
+    this.productDAO.deleteProductsByIdIn(ids);
   }
 
   /**

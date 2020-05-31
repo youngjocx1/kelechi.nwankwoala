@@ -131,26 +131,26 @@ export const EnhancedTableToolbar = (props) => {
       {numSelected > 0
         ? <React.Fragment>
           {numSelected === 1
-            ? <Tooltip title='Edit'>
+            ? <Tooltip arrow title='Edit'>
               <IconButton size='small' onClick={toggleEdit} aria-label='edit'>
                 <EditIcon/>
               </IconButton>
             </Tooltip>
             : null
           }
-          <Tooltip title='Delete'>
+          <Tooltip arrow title='Delete'>
             <IconButton size='small' onClick={toggleDelete} aria-label='delete'>
               <DeleteIcon/>
             </IconButton>
           </Tooltip>
         </React.Fragment>
         : <React.Fragment>
-          <Tooltip title='Create'>
+          <Tooltip arrow title='Create'>
             <IconButton size='small' onClick={toggleCreate} aria-label='create new'>
               <AddIcon/>
             </IconButton>
           </Tooltip>
-          <Tooltip title='Filter list'>
+          <Tooltip arrow title='Filter list'>
             <IconButton size='small' aria-label='filter list'>
               <FilterListIcon/>
             </IconButton>

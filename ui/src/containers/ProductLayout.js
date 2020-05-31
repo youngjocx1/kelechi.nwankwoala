@@ -1,8 +1,8 @@
-import { EnhancedTableToolbar } from '../components/Table'
 import * as productDuck from '../ducks/products'
 import Avatar from '@material-ui/core/Avatar'
 import Checkbox from '@material-ui/core/Checkbox'
 import Divider from '@material-ui/core/Divider'
+import { EnhancedTableToolbar } from '../components/Table'
 import Grid from '@material-ui/core/Grid'
 import ImageIcon from '@material-ui/icons/Image'
 import List from '@material-ui/core/List'
@@ -12,10 +12,10 @@ import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import { makeStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
-import ProductDeleteModal from '../components/Products/ProductFormModal'
+import ProductDeleteModal from '../components/Products/ProductDeleteModal'
 import ProductFormModal from '../components/Products/ProductFormModal'
-import React, { useEffect } from 'react'
-import { connect, useDispatch, useSelector } from 'react-redux'
+import React, { useCallback, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,15 +31,21 @@ const useStyles = makeStyles((theme) => ({
 const ProductLayout = (props) => {
   const classes = useStyles()
   const dispatch = useDispatch()
+
+  const products = useSelector(state => state.products.all)
+  const isFetched = useSelector(state => state.products.fetched)
+  const removeProducts = useCallback(ids => { dispatch(productDuck.removeProducts(ids)) }, [dispatch])
+  const saveProducts = useCallback(product => { dispatch(productDuck.saveProducts(product)) }, [dispatch])
+
   useEffect(() => {
-    if (!props.isFetched) {
+    if (!isFetched) {
       dispatch(productDuck.findProducts())
     }
-  }, [dispatch, props.isFetched])
+  }, [dispatch, isFetched])
 
   const [isCreateOpen, setCreateOpen] = React.useState(false)
   const [isEditOpen, setEditOpen] = React.useState(false)
-  const [isDeleteOpen, setDeleteOpen] = React.useState(true)
+  const [isDeleteOpen, setDeleteOpen] = React.useState(false)
   const toggleCreate = () => {
     setCreateOpen(true)
   }
@@ -49,10 +55,13 @@ const ProductLayout = (props) => {
   const toggleDelete = () => {
     setDeleteOpen(true)
   }
-  const toggleModals = () => {
+  const toggleModals = (resetChecked) => {
     setCreateOpen(false)
     setDeleteOpen(false)
     setEditOpen(false)
+    if (resetChecked) {
+      setChecked([])
+    }
   }
   const [checked, setChecked] = React.useState([])
   const handleToggle = (value) => () => {
@@ -66,28 +75,11 @@ const ProductLayout = (props) => {
     }
     setChecked(newChecked)
   }
+
   return (
     <Grid container>
       <Grid item xs={12}>
         <Paper>
-          <ProductFormModal
-            title='Create'
-            id='productCreate'
-            isDialogOpen={isCreateOpen}
-            handleDialog={toggleModals}
-            handleSubmit={props.saveProduct}
-          />
-          <ProductFormModal
-            title='Edit'
-            id='productEdit'
-            isDialogOpen={isEditOpen}
-            handleSubmit={props.saveProduct}
-          />
-          <ProductDeleteModal
-            id='productDelete'
-            isDialogOpen={isDeleteOpen}
-            handleSubmit={props.removeProduct}
-          />
           <EnhancedTableToolbar
             numSelected={checked.length}
             title='Products'
@@ -96,14 +88,14 @@ const ProductLayout = (props) => {
             toggleEdit={toggleEdit}
           />
           <List dense disablePadding className={classes.root}>
-            {props.products.map((value, index) =>
+            {products.map((value, index) =>
               <React.Fragment key={index}>
                 <Divider/>
-                <ListItem button onClick={handleToggle(index)}>
+                <ListItem button onClick={handleToggle(value)}>
                   <ListItemIcon>
                     <Checkbox
-                      onChange={handleToggle(index)}
-                      checked={checked.indexOf(index) !== -1}
+                      onChange={handleToggle(value)}
+                      checked={checked.indexOf(value) !== -1}
                     />
                   </ListItemIcon>
                   <ListItemAvatar>
@@ -117,26 +109,30 @@ const ProductLayout = (props) => {
             )}
           </List>
         </Paper>
+        <ProductFormModal
+          title='Create'
+          formName='productCreate'
+          isDialogOpen={isCreateOpen}
+          handleDialog={toggleModals}
+          handleProduct={saveProducts}
+        />
+        <ProductFormModal
+          title='Edit'
+          formName='productEdit'
+          isDialogOpen={isEditOpen}
+          handleDialog={toggleModals}
+          handleProduct={saveProducts}
+          initialValues={checked[0]}
+        />
+        <ProductDeleteModal
+          isDialogOpen={isDeleteOpen}
+          handleDelete={removeProducts}
+          handleDialog={toggleModals}
+          initialValues={checked.map(check => check.id)}
+        />
       </Grid>
     </Grid>
   )
 }
 
-export default connect(
-  (state) => {
-    return {
-      isFetched: useSelector(state => state.products.fetched),
-      products: useSelector(state => state.products.all)
-    }
-  },
-  (dispatch, props) => {
-    return {
-      removeProduct: (id) => {
-        dispatch(productDuck.removeProducts(id))
-      },
-      saveProduct: (product) => {
-        dispatch(productDuck.saveProducts(product))
-      }
-    }
-  }
-)(ProductLayout)
+export default ProductLayout

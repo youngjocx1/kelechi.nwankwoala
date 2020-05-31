@@ -35,13 +35,13 @@ export const saveProducts = createAction(actions.PRODUCTS_SAVE, (product) =>
     })
 )
 
-export const removeProducts = createAction(actions.PRODUCTS_DELETE, (id) =>
+export const removeProducts = createAction(actions.PRODUCTS_DELETE, (ids) =>
   (dispatch, getState, config) => axios
-    .delete(`${config.restAPIUrl}/products?id=${id}`)
+    .post(`${config.restAPIUrl}/products/remove`, ids)
     .then((suc) => {
       const invs = []
       getState().products.all.forEach(inv => {
-        if (inv.id !== id) {
+        if (!ids.includes(inv.id)) {
           invs.push(inv)
         }
       })
@@ -51,7 +51,7 @@ export const removeProducts = createAction(actions.PRODUCTS_DELETE, (id) =>
 
 export const refreshProducts = createAction(actions.PRODUCTS_REFRESH, (payload) =>
   (dispatcher, getState, config) =>
-    payload
+    payload.sort((productA, productB) => productA.name < productB.name ? -1 : productA.name > productB.name ? 1 : 0)
 )
 
 export default handleActions({
