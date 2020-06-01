@@ -1,166 +1,271 @@
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward'
+import ArrowForwardIcon from '@material-ui/icons/PlayArrow'
+import ArrowRightIcon from '@material-ui/icons/PlayArrowOutlined'
 import Divider from '@material-ui/core/Divider'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
+import { makeStyles } from '@material-ui/core/styles'
 import React from 'react'
 import Typography from '@material-ui/core/Typography'
 
-const WelcomeLayout = (props) =>
-  <React.Fragment>
-    <Typography variant='h4'>
-      Welcome to the Exerceo Starter App!
-    </Typography>
-    <Divider />
-    <Typography variant='h6'>
-      In order to be successful in the Javascript world, we have adopted several best practices and picked
-      specific libraries based on our lessons learned.
-    </Typography>
-    <Typography variant='h6'>
-      The following is not an exhaustive list, but it covers
-      the vast majority:
-    </Typography>
-    <List>
-      <ListItem>
-        <ListItemIcon><ArrowForwardIcon /></ListItemIcon>
-        <Typography>EcmaScript 2016 (ES6) Syntax Tutorials</Typography>
-      </ListItem>
-      <ListItem>
-        <List>
-          <ListItem>
+const useStyles = makeStyles((theme) => ({
+  gridItem: {
+    padding: theme.spacing(2)
+  },
+  paddingTop: {
+    padding: theme.spacing(1),
+    paddingBottom: 0,
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+  },
+  paddingBottom: {
+    padding: theme.spacing(1),
+    paddingTop: 0,
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+  },
+  root: {
+    maxHeight: '70vh',
+    overflow: 'auto',
+    padding: theme.spacing(2)
+  },
+  nested: {
+    paddingLeft: theme.spacing(6),
+  },
+}))
+
+const WelcomeLayout = () => {
+  const classes = useStyles()
+  return (
+    <React.Fragment>
+      <Typography variant='h4' className={classes.gridItem}>
+        Welcome to the Exerceo Starter Application.
+      </Typography>
+      <Divider/>
+      <Typography variant='subtitle1' className={classes.paddingTop}>
+        In order to be successful in the Javascript world, we have adopted several best practices and picked
+        specific libraries based on our lessons learned.
+      </Typography>
+      <Typography variant='subtitle1' className={classes.paddingBottom}>
+        The following is not an exhaustive list, but it covers
+        the vast majority of the libraries we use.
+      </Typography>
+      <Divider/>
+      <List component='div' disablePadding className={classes.root}>
+        <ListItem
+          button
+          component='a'
+          href='https://github.com/erikras/ducks-modular-redux'
+          rel='noopener noreferrer'
+          target='_blank'>
+          <ListItemIcon><ArrowForwardIcon /></ListItemIcon>
+          <Typography>Ducks Architecture (Redux implementation best practice)</Typography>
+        </ListItem>
+        <ListItem
+          button
+          component='a'
+          href='https://www.youtube.com/playlist?list=PLoYCgNOIyGACDQLaThEEKBAlgs4OIUGif'
+          rel='noopener noreferrer'
+          target='_blank'>
+          <ListItemIcon><ArrowForwardIcon/></ListItemIcon>
+          <Typography>EcmaScript 2016 (ES6) Tutorials</Typography>
+        </ListItem>
+        <ListItem
+          button
+          component='a'
+          href='https://github.com/acdlite/flux-standard-action'
+          rel='noopener noreferrer'
+          target='_blank'>
+          <ListItemIcon><ArrowForwardIcon /></ListItemIcon>
+          <Typography>Flux Standard Actions</Typography>
+        </ListItem>
+        <ListItem>
+          <ListItemIcon><ArrowForwardIcon /></ListItemIcon>
+          <Typography>React and Redux (Flux)</Typography>
+        </ListItem>
+        <List component='div' disablePadding>
+          <ListItem
+            button
+            component='a'
+            href='https://facebook.github.io/flux/docs/in-depth-overview'
+            rel='noopener noreferrer'
+            target='_blank'
+            className={classes.nested}>
+            <ListItemIcon><ArrowRightIcon/></ListItemIcon>
             <Typography>
-              https://www.youtube.com/playlist?list=PLoYCgNOIyGACDQLaThEEKBAlgs4OIUGif
+              Flux Architecture
+            </Typography>
+          </ListItem>
+          <ListItem
+            button
+            component='a'
+            href='https://reactjs.org/docs/getting-started.html'
+            rel='noopener noreferrer'
+            target='_blank'
+            className={classes.nested}>
+            <ListItemIcon><ArrowRightIcon/></ListItemIcon>
+            <Typography>
+              React Starter Documentation
+            </Typography>
+          </ListItem>
+          <ListItem
+            button
+            component='a'
+            href='https://www.youtube.com/playlist?list=PLoYCgNOIyGABj2GQSlDRjgvXtqfDxKm5b'
+            rel='noopener noreferrer'
+            target='_blank'
+            className={classes.nested}>
+            <ListItemIcon><ArrowRightIcon/></ListItemIcon>
+            <Typography>
+              React/Redux Tutorials
+            </Typography>
+          </ListItem>
+          <ListItem
+            button
+            component='a'
+            href='https://redux.js.org/introduction/getting-started'
+            rel='noopener noreferrer'
+            target='_blank'
+            className={classes.nested}>
+            <ListItemIcon><ArrowRightIcon/></ListItemIcon>
+            <Typography>
+              Redux Documentation
+            </Typography>
+          </ListItem>
+          <ListItem
+            button
+            component='a'
+            href='https://material-ui.com/'
+            rel='noopener noreferrer'
+            target='_blank'
+            className={classes.nested}>
+            <ListItemIcon><ArrowRightIcon/></ListItemIcon>
+            <Typography>
+              Material-UI
             </Typography>
           </ListItem>
         </List>
-      </ListItem>
-      <ListItem>
-        <ListItemIcon><ArrowForwardIcon /></ListItemIcon>
-        <Typography>React and Redux (Flux)</Typography>
-      </ListItem>
-      <ListItem classes={{ paddingLeft: '100px' }}>
-        <List>
-          <ListItem>
+        <ListItem
+          button
+          component='a'
+          href='https://redux.js.org/introduction/ecosystem'
+          rel='noopener noreferrer'
+          target='_blank'>
+          <ListItemIcon><ArrowForwardIcon /></ListItemIcon>
+          <Typography>Redux Ecosystem</Typography>
+        </ListItem>
+        <List component='div' disablePadding>
+          <ListItem
+            button
+            component='a'
+            href='https://github.com/reduxjs/react-redux'
+            rel='noopener noreferrer'
+            target='_blank'
+            className={classes.nested}>
+            <ListItemIcon><ArrowRightIcon/></ListItemIcon>
             <Typography>
-              React Documentation: https://reactjs.org/docs/getting-started.html 
+              React-Redux
             </Typography>
           </ListItem>
-          <ListItem>
+          <ListItem
+            button
+            component='a'
+            href='https://github.com/reduxactions/redux-actions'
+            rel='noopener noreferrer'
+            target='_blank'
+            className={classes.nested}>
+            <ListItemIcon><ArrowRightIcon/></ListItemIcon>
             <Typography>
-              Flux Architecture: https://facebook.github.io/flux/docs/in-depth-overview 
+              Redux actions
             </Typography>
           </ListItem>
-          <ListItem>
+          <ListItem
+            button
+            component='a'
+            href='https://github.com/reduxjs/reselect'
+            rel='noopener noreferrer'
+            target='_blank'
+            className={classes.nested}>
+            <ListItemIcon><ArrowRightIcon/></ListItemIcon>
             <Typography>
-              Redux Documentation: https://redux.js.org/introduction/getting-started 
+              Reselect
             </Typography>
           </ListItem>
-          <ListItem>
+          <ListItem
+            button
+            component='a'
+            href='https://github.com/gaearon/redux-thunk'
+            rel='noopener noreferrer'
+            target='_blank'
+            className={classes.nested}>
+            <ListItemIcon><ArrowRightIcon/></ListItemIcon>
             <Typography>
-              React/Redux Tutorials: https://www.youtube.com/playlist?list=PLoYCgNOIyGABj2GQSlDRjgvXtqfDxKm5b
+              Thunk (Note: We have constructed our own thunk middleware utilizing Flux Standard Actions.)
             </Typography>
           </ListItem>
-          <ListItem>
+          <ListItem
+            button
+            component='a'
+            href='https://github.com/pburtchaell/redux-promise-middleware'
+            rel='noopener noreferrer'
+            target='_blank'
+            className={classes.nested}>
+            <ListItemIcon><ArrowRightIcon/></ListItemIcon>
             <Typography>
-              Material-UI: https://material-ui.com/ 
+              Redux Promise Middleware
             </Typography>
           </ListItem>
-        </List>
-      </ListItem>
-      <ListItem>
-        <ListItemIcon><ArrowForwardIcon /></ListItemIcon>
-        <Typography>Smart Containers vs Dumb Components</Typography>
-      </ListItem>
-      <ListItem>
-        <List>
-          <ListItem>
+          <ListItem
+            button
+            component='a'
+            href='https://github.com/evgenyrodionov/redux-logger'
+            rel='noopener noreferrer'
+            target='_blank'
+            className={classes.nested}>
+            <ListItemIcon><ArrowRightIcon/></ListItemIcon>
             <Typography>
-              https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0 
+              Redux Logger
             </Typography>
           </ListItem>
-        </List>
-      </ListItem>
-      <ListItem>
-        <ListItemIcon><ArrowForwardIcon /></ListItemIcon>
-        <Typography>Ducks Architecture (Redux implementation best practice)</Typography>
-      </ListItem>
-      <ListItem>
-        <List>
-          <ListItem>
+          <ListItem
+            button
+            component='a'
+            href='https://reacttraining.com/react-router/'
+            rel='noopener noreferrer'
+            target='_blank'
+            className={classes.nested}>
+            <ListItemIcon><ArrowRightIcon/></ListItemIcon>
             <Typography>
-              https://github.com/erikras/ducks-modular-redux 
+              React Router
             </Typography>
           </ListItem>
-        </List>
-      </ListItem>
-      <ListItem>
-        <ListItemIcon><ArrowForwardIcon /></ListItemIcon>
-        <Typography>Flux Standard Actions</Typography>
-      </ListItem>
-      <ListItem>
-        <List>
-          <ListItem>
+          <ListItem
+            button
+            component='a'
+            href='https://github.com/erikras/redux-form'
+            rel='noopener noreferrer'
+            target='_blank'
+            className={classes.nested}>
+            <ListItemIcon><ArrowRightIcon/></ListItemIcon>
             <Typography>
-              https://github.com/acdlite/flux-standard-action 
-            </Typography>
-          </ListItem>
-        </List>
-      </ListItem>
-      <ListItem>
-        <ListItemIcon><ArrowForwardIcon /></ListItemIcon>
-        <Typography>Redux Ecosystem</Typography>
-      </ListItem>
-      <ListItem classes={{ paddingLeft: '100px' }}>
-        <List>
-          <ListItem>
-            <Typography>
-              https://redux.js.org/introduction/ecosystem 
-            </Typography>
-          </ListItem>
-          <ListItem>
-            <Typography>
-              React-Redux: https://github.com/reduxjs/react-redux 
-            </Typography>
-          </ListItem>
-          <ListItem>
-            <Typography>
-              Redux actions: https://github.com/reduxactions/redux-actions 
-            </Typography>
-          </ListItem>
-          <ListItem>
-            <Typography>
-              Reselect: https://github.com/reduxjs/reselect 
-            </Typography>
-          </ListItem>
-          <ListItem>
-            <Typography>
-              Thunk: https://github.com/gaearon/redux-thunk NOTE: We have constructed our own thunk
-              middleware utilizing Flux Standard Actions (FSA).
-            </Typography>
-          </ListItem>
-          <ListItem>
-            <Typography>
-              Redux-promise-middleware: https://github.com/pburtchaell/redux-promise-middleware
-            </Typography>
-          </ListItem>
-          <ListItem>
-            <Typography>
-              Redux-logger: https://github.com/evgenyrodionov/redux-logger
-            </Typography>
-          </ListItem>
-          <ListItem>
-            <Typography>
-              Connected-react-router: https://github.com/supasate/connected-react-router
-            </Typography>
-          </ListItem>
-          <ListItem>
-            <Typography>
-              Redux-form: https://github.com/erikras/redux-form
+              Redux Form
             </Typography>
           </ListItem>
         </List>
-      </ListItem>
-    </List>
-  </React.Fragment>
+
+        <ListItem
+          button
+          component='a'
+          href='https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0'
+          rel='noopener noreferrer'
+          target='_blank'>
+          <ListItemIcon><ArrowForwardIcon /></ListItemIcon>
+          <Typography>Smart Containers vs Dumb Components</Typography>
+        </ListItem>
+
+      </List>
+    </React.Fragment>
+  )
+}
 
 export default WelcomeLayout
