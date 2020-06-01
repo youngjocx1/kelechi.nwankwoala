@@ -20,7 +20,7 @@ back-end.Enter the following command: `mvn clean install`
 
 . Next, we are ready to run the back-end of the application.Enter the following command: `mvn spring-boot:run`
 
-=== Front-End
+== Front-End
 
 . In a new terminal window, navigate back to the fullstack-starter root directory
 . Next, `cd` into the ui directory
@@ -29,5 +29,5 @@ following command: `yarn`
 
 . After the dependencies have been resolved, we are ready to run the front-end of the application.In the
 same directory, enter the following command: `yarn start`
-. Lastly, to view the operating front-end, navigate to [http://localhost:3000](http://localhost:3000) in your preferred
+. Lastly, to view the operating front-end, navigate to https://localhost:3000[localhost:3000] in your preferred
 browser.
