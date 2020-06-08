@@ -1,36 +1,27 @@
 package com.starter.fullstack.rest;
 
-import com.starter.fullstack.api.Inventory;
 import com.starter.fullstack.api.Product;
-import com.starter.fullstack.dao.InventoryDAO;
 import com.starter.fullstack.dao.ProductDAO;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.util.Assert;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Starter Controller.
+ * Product Controller.
  */
 @RestController
-public class StarterController {
-  private final InventoryDAO inventoryDAO;
+public class ProductController {
   private final ProductDAO productDAO;
 
   /**
    * Default Constructor.
-   * @param inventoryDAO inventoryDAO.
    * @param productDAO productDAO.
    */
-  public StarterController(InventoryDAO inventoryDAO,
-                           ProductDAO productDAO) {
-    Assert.notNull(inventoryDAO, "Inventory DAO must not be null.");
-    this.inventoryDAO = inventoryDAO;
+  public ProductController(ProductDAO productDAO) {
     Assert.notNull(productDAO, "Product DAO must not be null.");
     this.productDAO = productDAO;
   }
@@ -63,34 +54,5 @@ public class StarterController {
     Assert.notEmpty(ids, "Product Ids were not provided");
     this.productDAO.deleteProductsByIdIn(ids);
   }
-
-  /**
-   * Find Inventory.
-   * @return List of Inventory.
-   */
-  @GetMapping("/inventory")
-  public List<Inventory> findInventory() {
-    return this.inventoryDAO.findAll();
-  }
-
-  /**
-   * Save Inventory.
-   * @param inventory inventory.
-   * @return Inventory.
-   */
-  @PostMapping("/inventory/save")
-  public Inventory saveInventory(@Valid @RequestBody Inventory inventory) {
-    return this.inventoryDAO.save(inventory);
-  }
-
-  /**
-   * Delete Inventory By Id.
-   * @param id id.
-   * @return Deleted Inventory.
-   */
-  @DeleteMapping("/inventory")
-  public Inventory deleteInventoryById(@RequestParam("id") String id) {
-    Assert.hasText(id, "Inventory Id was not provided");
-    return this.inventoryDAO.deleteById(id);
-  }
 }
+

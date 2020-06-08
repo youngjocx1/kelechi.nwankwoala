@@ -2,13 +2,12 @@ package com.starter.fullstack.dao;
 
 import com.starter.fullstack.api.Inventory;
 import java.util.List;
+import java.util.Optional;
 import javax.annotation.PostConstruct;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.index.Index;
 import org.springframework.data.mongodb.core.index.IndexOperations;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.util.Assert;
 
 /**
@@ -16,7 +15,6 @@ import org.springframework.util.Assert;
  */
 public class InventoryDAO {
   private final MongoTemplate mongoTemplate;
-  private static final String ID = "id";
   private static final String NAME = "name";
   private static final String PRODUCT_TYPE = "productType";
 
@@ -52,8 +50,30 @@ public class InventoryDAO {
    * @param inventory Inventory to Save/Update.
    * @return Created/Updated Inventory.
    */
-  public Inventory save(Inventory inventory) {
-    return this.mongoTemplate.save(inventory);
+  public Inventory create(Inventory inventory) {
+    // TODO
+    return null;
+  }
+
+  /**
+   * Retrieve Inventory.
+   * @param id Inventory id to Retrieve.
+   * @return Found Inventory.
+   */
+  public Optional<Inventory> retrieve(String id) {
+    // TODO
+    return Optional.empty();
+  }
+
+  /**
+   * Update Inventory.
+   * @param id Inventory id to Update.
+   * @param inventory Inventory to Update.
+   * @return Updated Inventory.
+   */
+  public Optional<Inventory> update(String id, Inventory inventory) {
+    // TODO
+    return Optional.empty();
   }
 
   /**
@@ -61,8 +81,8 @@ public class InventoryDAO {
    * @param id Id of Inventory.
    * @return Deleted Inventory.
    */
-  public Inventory deleteById(String id) {
-    Criteria criteria = Criteria.where(ID).is(id);
-    return this.mongoTemplate.findAndRemove(new Query(criteria), Inventory.class);
+  public Optional<Inventory> delete(String id) {
+    // TODO
+    return Optional.empty();
   }
 }
