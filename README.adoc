@@ -5,7 +5,9 @@ Front-End and Back-End of a web application.
 
 . Please follow the instructions on the https://gogs.caifos.us/Sofiac/incubator-documentation/src/branch/master/fullstack[Incubator Full Stack Docs]
 to get your environment setup.
-. Clone this repository to your environment `git@gogs.caifos.us:Sofiac/fullstack-starter.git`
+. Fork this repository. In the top right of this page you'll see a fork option. Click that and accept all the default options.
+. Now you should be in your users forked repo. To verify this you should see your.username/fullstack-starter in the top left/url.
+. Clone your forked repository to your environment via ssh `git@gogs.caifos.us:$USER/fullstack-starter.git`
 
 == Back-End
 
