@@ -22,7 +22,7 @@ export const findProducts = createAction(actions.PRODUCTS_GET_ALL, () =>
 
 export const saveProducts = createAction(actions.PRODUCTS_SAVE, (product) =>
   (dispatch, getState, config) => axios
-    .post(`${config.restAPIUrl}/products/save`, product)
+    .post(`${config.restAPIUrl}/products`, product)
     .then((suc) => {
       const invs = []
       getState().products.all.forEach(inv => {

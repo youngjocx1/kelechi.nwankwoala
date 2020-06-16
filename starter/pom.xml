@@ -103,8 +103,6 @@
 										<module name="ArrayTypeStyle">
 											<property name="javaStyle" value="true" />
 										</module>
-										<module name="AvoidStarImport" />
-										<module name="AvoidStaticImport" />
 										<module name="EmptyBlock">
 											<property name="severity" value="warning" />
 											<property name="option" value="statement" />

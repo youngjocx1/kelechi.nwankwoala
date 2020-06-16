@@ -40,13 +40,17 @@ public class ProductController {
    * @param product product.
    * @return Product.
    */
-  @PostMapping("/products/save")
+  @PostMapping("/products")
   public Product saveProduct(@Valid @RequestBody Product product) {
     return this.productDAO.save(product);
   }
 
   /**
    * Delete Product By Id.
+   *
+   * This would normally be a DELETE verb, but since we have a RequestBody,
+   * we have to use a POST instead.
+   *
    * @param ids ids.
    */
   @PostMapping("/products/remove")
