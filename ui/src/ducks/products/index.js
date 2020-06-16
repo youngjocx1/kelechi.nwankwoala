@@ -37,7 +37,7 @@ export const saveProducts = createAction(actions.PRODUCTS_SAVE, (product) =>
 
 export const removeProducts = createAction(actions.PRODUCTS_DELETE, (ids) =>
   (dispatch, getState, config) => axios
-    .post(`${config.restAPIUrl}/products/remove`, ids)
+    .delete(`${config.restAPIUrl}/products`, { data: ids })
     .then((suc) => {
       const invs = []
       getState().products.all.forEach(inv => {

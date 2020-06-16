@@ -5,6 +5,7 @@ import com.starter.fullstack.dao.ProductDAO;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.util.Assert;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -48,12 +49,9 @@ public class ProductController {
   /**
    * Delete Product By Id.
    *
-   * This would normally be a DELETE verb, but since we have a RequestBody,
-   * we have to use a POST instead.
-   *
    * @param ids ids.
    */
-  @PostMapping("/products/remove")
+  @DeleteMapping("/products")
   public void deleteProductById(@RequestBody List<String> ids) {
     Assert.notEmpty(ids, "Product Ids were not provided");
     this.productDAO.deleteProductsByIdIn(ids);
