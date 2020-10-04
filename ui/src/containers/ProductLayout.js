@@ -115,6 +115,7 @@ const ProductLayout = (props) => {
           isDialogOpen={isCreateOpen}
           handleDialog={toggleModals}
           handleProduct={saveProducts}
+          initialValues={{}}
         />
         <ProductFormModal
           title='Edit'

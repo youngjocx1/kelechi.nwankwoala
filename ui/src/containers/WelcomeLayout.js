@@ -242,13 +242,13 @@ const WelcomeLayout = () => {
           <ListItem
             button
             component='a'
-            href='https://github.com/erikras/redux-form'
+            href='https://formik.org/docs/overview'
             rel='noopener noreferrer'
             target='_blank'
             className={classes.nested}>
             <ListItemIcon><ArrowRightIcon/></ListItemIcon>
             <Typography>
-              Redux Form
+              Formik
             </Typography>
           </ListItem>
         </List>

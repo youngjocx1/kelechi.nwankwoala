@@ -21,80 +21,56 @@ export const closeAlert = createAction(alertActions.CLOSE_ALERT)
 
 export const resetAlert = createAction(alertActions.RESET_ALERT)
 
-export const openAlert = createAction(alertActions.OPEN_ALERT, (payload) => {
-  return (dispatch,getState,config) => {
-    return payload
-  }
-})
+export const openAlert = createAction(alertActions.OPEN_ALERT, (payload) =>
+  (dispatch, getState, config) => payload)
 
-export const openSuccess = createAction(alertActions.OPEN_SUCCESS, (payload) => {
-  return (dispatch,getState,config) => {
-    return payload
-  }
-})
+export const openSuccess = createAction(alertActions.OPEN_SUCCESS, (payload) =>
+  (dispatch, getState, config) => payload)
 
-export const openError = createAction(alertActions.OPEN_ERROR, (payload) => {
-  return (dispatch,getState,config) => {
-    return payload
-  }
-})
+export const openError = createAction(alertActions.OPEN_ERROR, (payload) =>
+  (dispatch, getState, config) => payload)
 
-export const openWarning = createAction(alertActions.OPEN_WARN, (payload) => {
-  return (dispatch,getState,config) => {
-    return payload
-  }
-})
+export const openWarning = createAction(alertActions.OPEN_WARN, (payload) =>
+  (dispatch,getState,config) => payload)
 
 export default handleActions({
-  [alertActions.CLOSE_ALERT]: (state) => {
-    return {
-      ...state,
-      open: false,
-    }
-  },
-  [alertActions.OPEN_ALERT]: (state, action) => {
-    return {
-      error: false,
-      message: action.payload,
-      open: true,
-      success: false,
-      warning: false,
-    }
-  },
-  [alertActions.OPEN_SUCCESS]: (state, action) => {
-    return {
-      error: false,
-      message: action.payload,
-      open: true,
-      success: true,
-      warning: false,
-    }
-  },
-  [alertActions.OPEN_ERROR]: (state, action) => {
-    return {
-      error: true,
-      message: action.payload,
-      open: true,
-      success: false,
-      warning: false,
-    }
-  },
-  [alertActions.OPEN_WARN]: (state, action) => {
-    return {
-      error: false,
-      message: action.payload,
-      open: true,
-      success: false,
-      warning: true,
-    }
-  },
-  [alertActions.RESET_ALERT]: (state) => {
-    return {
-      error: false,
-      message: '',
-      open: false,
-      success: false,
-      warning: false,
-    }
-  }
+  [alertActions.CLOSE_ALERT]: (state) => ({
+    ...state,
+    open: false,
+  }),
+  [alertActions.OPEN_ALERT]: (state, action) => ({
+    error: false,
+    message: action.payload,
+    open: true,
+    success: false,
+    warning: false,
+  }),
+  [alertActions.OPEN_SUCCESS]: (state, action) => ({
+    error: false,
+    message: action.payload,
+    open: true,
+    success: true,
+    warning: false,
+  }),
+  [alertActions.OPEN_ERROR]: (state, action) => ({
+    error: true,
+    message: action.payload,
+    open: true,
+    success: false,
+    warning: false,
+  }),
+  [alertActions.OPEN_WARN]: (state, action) => ({
+    error: false,
+    message: action.payload,
+    open: true,
+    success: false,
+    warning: true,
+  }),
+  [alertActions.RESET_ALERT]: (state) => ({
+    error: false,
+    message: '',
+    open: false,
+    success: false,
+    warning: false,
+  })
 }, defaultState)

@@ -74,7 +74,7 @@ const DesignLayout = (props) => {
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         autoHideDuration={3000}
         message={message}
-        onClose={() => { props.closeAlert() }}
+        onClose={() => { alertDuck.closeAlert() }}
         open={open}
         ContentProps={{
           id: 'toast-alert',
