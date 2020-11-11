@@ -68,18 +68,18 @@ const InventoryLayout = (props) => {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelected = normalizedInventory.map((row) => row.name)
+      const newSelected = normalizedInventory.map((row) => row.id)
       setSelected(newSelected)
       return
     }
     setSelected([])
   }
 
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name)
+  const handleClick = (event, id) => {
+    const selectedIndex = selected.indexOf(id)
     let newSelected = []
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name)
+      newSelected = newSelected.concat(selected, id)
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1))
     } else if (selectedIndex === selected.length - 1) {
@@ -93,7 +93,7 @@ const InventoryLayout = (props) => {
     setSelected(newSelected)
   }
 
-  const isSelected = (name) => selected.indexOf(name) !== -1
+  const isSelected = (id) => selected.indexOf(id) !== -1
 
   return (
     <Grid container>
@@ -114,15 +114,15 @@ const InventoryLayout = (props) => {
             <TableBody>
               {stableSort(normalizedInventory, getComparator(order, orderBy))
                 .map(inv => {
-                  const isItemSelected = isSelected(inv.name)
+                  const isItemSelected = isSelected(inv.id)
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, inv.name)}
+                      onClick={(event) => handleClick(event, inv.id)}
                       role='checkbox'
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={inv.name}
+                      key={inv.id}
                       selected={isItemSelected}
                     >
                       <TableCell padding='checkbox'>
