@@ -52,7 +52,8 @@ public class InventoryDAO {
    */
   public Inventory create(Inventory inventory) {
     // TODO
-    return null;
+    inventory.setID(null);
+    return mongoTemplate.insert(inventory;
   }
 
   /**
