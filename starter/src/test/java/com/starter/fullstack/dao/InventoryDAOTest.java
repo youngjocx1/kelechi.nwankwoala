@@ -50,3 +50,13 @@ public class InventoryDAOTest {
     Assert.assertFalse(actualInventory.isEmpty());
   }
 }
+
+public void findAll() {
+    Inventory inventory = new Inventory();
+    inventory.setName(NAME);
+    inventory.setProductType(PRODUCT_TYPE);
+    this.mongoTemplate.save(inventory);
+    List<Inventory> actualInventory = this.inventoryDAO.findAll();
+    Assert.assertFalse(actualInventory.isEmpty());
+  }
+
