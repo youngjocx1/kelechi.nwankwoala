@@ -51,12 +51,11 @@ public class InventoryDAOTest {
   }
 }
 
-public void findAll() {
+public void createDAOtest() {
     Inventory inventory = new Inventory();
     inventory.setName(NAME);
     inventory.setProductType(PRODUCT_TYPE);
-    this.mongoTemplate.save(inventory);
-    List<Inventory> actualInventory = this.inventoryDAO.findAll();
+    this.InventoryDAO.create(inventory);
     Assert.assertFalse(actualInventory.isEmpty());
   }
 
